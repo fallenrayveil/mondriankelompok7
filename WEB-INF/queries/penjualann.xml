@@ -1,0 +1,64 @@
+<Schema name="New Schema1">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Customer">
+    <Hierarchy name="Customer" visible="true" hasAll="true" allMemberName="All Customer" primaryKey="Customer_ID">
+      <Table name="dimensi_customer">
+      </Table>
+      <Level name="Nama" visible="true" column="Customer_ID" nameColumn="Customer_Name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Type" visible="true" column="Customer_ID" nameColumn="Customer_Type" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Produk">
+    <Hierarchy name="Produk" visible="true" hasAll="true" allMemberName="All Produk" primaryKey="Product_ID">
+      <Table name="dimensi_produk">
+      </Table>
+      <Level name="Product_Name" visible="true" column="Product_ID" nameColumn="Nama Produk" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Product_Category" visible="true" column="Product_ID" nameColumn="Kategori" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Product_Subcategory" visible="true" column="Product_ID" nameColumn="Sub Kategori" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Waktu">
+    <Hierarchy name="Waktu" visible="true" hasAll="true" allMemberName="All Waktu" primaryKey="Date_ID">
+      <Table name="dimensi_waktu">
+      </Table>
+      <Level name="Year" visible="true" column="Date_ID" nameColumn="tahun" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Month" visible="true" column="Date_ID" nameColumn="bulan" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Date" visible="true" column="Date_ID" nameColumn="tgl" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Wilayah">
+    <Hierarchy name="Wilayah" visible="true" hasAll="true" allMemberName="All Wilayah" primaryKey="Territory_ID">
+      <Table name="dimensi_wilayah">
+      </Table>
+      <Level name="Negara" visible="true" column="Territory_ID" nameColumn="negera" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Provinsi" visible="true" column="Territory_ID" nameColumn="prov" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Kota" visible="true" column="Territory_ID" nameColumn="kota" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="Penjualan" visible="true" cache="true" enabled="true">
+    <Table name="fakta_penjualan">
+    </Table>
+    <DimensionUsage source="Customer" name="Customer" visible="true" foreignKey="CustomerID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Produk" name="Produk" visible="true" foreignKey="ProductID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Waktu" name="Waktu" visible="true" foreignKey="DueDate" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Wilayah" name="Territory" visible="true" foreignKey="Territory_ID">
+    </DimensionUsage>
+    <Measure name="TotalDue" column="TotalDue" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="OrderQty" column="OrderQty" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
